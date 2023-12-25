@@ -1,0 +1,87 @@
+
+<div class="mt-4">
+    <h3>Thùng rác</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên khóa học</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col">Thời gian tạo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.level}}</td>
+                    <td>{{this.createdAt}}</td>
+                    <td>
+                        <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                        {{!-- Payload data-id --}}
+                        <a 
+                            href="" 
+                            class="btn btn-link btn-permanentDelete" 
+                            {{!-- data-bs-toggle="modal" 
+                            data-bs-target="#exampleModal" --}}
+                            data-id= "{{this._id}}"
+                        >
+                            Xóa vĩnh viển
+                        </a>
+                    </td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan="5">
+                        Trùng rác trống !
+                        <a href="/me/stored/courses">Khóa học của tôi</a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{!-- Delete form --}}
+<form name="restore-course-form" method="POST"></form>
+<form name="permanentDelete-course-form" method="POST"></form>
+
+
+{{!-- Code script --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var courseId
+        var restoreBtn = $('.btn-restore')
+        var permanentDeleteBtn = $('.btn-permanentDelete')
+
+        //Get Form
+        var restoreForm = document.forms['restore-course-form']
+        var permanentDeleteForm = document.forms['permanentDelete-course-form']
+
+        //Handle when clicked restore btn
+        restoreBtn.click(function(e) {
+            e.preventDefault()
+            courseId = e.target.getAttribute("data-id")
+
+            restoreForm.action = `/courses/${courseId}/restore/?_method=PATCH`
+            restoreForm.submit()
+        })
+
+        //Handle when clicked restore btn
+
+        //CHUA XONG CẦN LÀM TIẾP
+        permanentDeleteBtn.click(function(e) {
+            e.preventDefault()
+            courseId = e.target.getAttribute('data-id')
+
+            permanentDeleteForm.action = `/courses/${courseId}/permanentDelete?_method=DELETE`
+            permanentDeleteForm.submit()
+            console.log(courseId)
+        })
+    })
+
+</script>
+

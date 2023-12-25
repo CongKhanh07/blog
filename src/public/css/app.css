@@ -1,0 +1,18 @@
+h1 {
+  color: orange; }
+
+h2 {
+  color: green; }
+
+.form-group {
+  padding-left: 20px; }
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 6px; }
+
+.form-select {
+  width: 150px;
+  margin: 0px 12px; }
